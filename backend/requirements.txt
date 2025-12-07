@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+torch
+transformers
+spacy
+networkx
+pydantic
+python-multipart
+# You need to run: python -m spacy download en_core_web_sm
