@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
-      
+
       {/* --- HEADER --- */}
       <header className="bg-linear-to-r from-indigo-700 to-purple-800 text-white shadow-lg">
         <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
@@ -50,37 +50,34 @@ function App() {
               <p className="text-indigo-200 text-xs tracking-wider uppercase">AI Summarizer & Knowledge Verification</p>
             </div>
           </div>
-          <div className="text-sm font-medium bg-white/10 px-3 py-1 rounded-full border border-white/20">
-            Final Year Project
-          </div>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
+
           {/* --- LEFT COLUMN: INPUT & SUMMARY (5 Columns) --- */}
           <div className="lg:col-span-5 flex flex-col gap-6">
-            
+
             {/* INPUT CARD */}
             <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
               <div className="bg-slate-50 px-4 py-3 border-b border-slate-200">
                 <h2 className="font-semibold text-slate-700">Source Text</h2>
               </div>
               <div className="p-4">
-                <textarea 
+                <textarea
                   rows="8"
-                  className="w-full p-3 text-sm text-slate-700 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all resize-none bg-slate-50 focus:bg-white"
+                  className="w-full p-3 text-sm text-slate-700 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all resize-y bg-slate-50 focus:bg-white"
                   placeholder="Paste your news article or document here (max 5000 chars)..."
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                 />
-                <button 
+                <button
                   onClick={handleAnalyze}
                   disabled={loading}
                   className={`mt-4 w-full py-3 px-4 rounded-lg text-white font-semibold shadow-md transition-all flex justify-center items-center gap-2
-                    ${loading 
-                      ? "bg-slate-400 cursor-not-allowed" 
+                    ${loading
+                      ? "bg-slate-400 cursor-not-allowed"
                       : "bg-indigo-600 hover:bg-indigo-700 hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
                     }`}
                 >
@@ -105,10 +102,10 @@ function App() {
             {/* RESULTS CARD */}
             {result && (
               <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden animate-fade-in-up">
-                 <div className="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
-                    <h2 className="font-semibold text-slate-700">Verified Summary</h2>
-                    <span className="text-xs font-mono bg-indigo-100 text-indigo-700 px-2 py-1 rounded">Model: DistilBART + NLI</span>
-                  </div>
+                <div className="bg-slate-50 px-4 py-3 border-b border-slate-200 flex justify-between items-center">
+                  <h2 className="font-semibold text-slate-700">Verified Summary</h2>
+                  <span className="text-xs font-mono bg-indigo-100 text-indigo-700 px-2 py-1 rounded">Model: DistilBART + NLI</span>
+                </div>
                 <div className="p-5 text-sm leading-relaxed text-slate-700">
                   {result.summary.map((sent, idx) => {
                     // Dynamic Styling based on Status
@@ -121,13 +118,13 @@ function App() {
                       textClass = "text-red-900 font-medium";
                       tooltip = "⚠️ Potential Hallucination Detected";
                     } else if (sent.status === 'Verified') {
-                        // Optional: Subtle green highlight for verified facts
-                        bgClass = "hover:bg-green-50 transition-colors";
+                      // Optional: Subtle green highlight for verified facts
+                      bgClass = "hover:bg-green-50 transition-colors";
                     }
 
                     return (
-                      <span 
-                        key={idx} 
+                      <span
+                        key={idx}
                         className={`${bgClass} ${textClass} px-0.5 py-0.5 rounded cursor-help transition-colors mr-1 inline-block`}
                         title={tooltip}
                       >
@@ -135,7 +132,7 @@ function App() {
                       </span>
                     );
                   })}
-                  
+
                   <div className="mt-4 pt-4 border-t border-slate-100 flex items-center gap-4 text-xs text-slate-500">
                     <div className="flex items-center gap-1">
                       <div className="w-3 h-3 bg-red-100 border-b-2 border-red-400"></div>
@@ -162,7 +159,7 @@ function App() {
                   <span className="px-2 py-1 bg-orange-100 text-orange-700 rounded-full">Locations</span>
                 </div>
               </div>
-              
+
               <div className="grow relative bg-slate-900" ref={graphWrapperRef}>
                 {result && result.graph_data ? (
                   <ForceGraph2D
@@ -179,7 +176,7 @@ function App() {
                   />
                 ) : (
                   <div className="absolute inset-0 flex flex-col justify-center items-center text-slate-500">
-                    
+
                     <svg className="w-16 h-16 mb-4 opacity-20" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z" /><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z" /></svg>
                     <p className="font-medium">Waiting for analysis...</p>
                     <p className="text-sm opacity-75">Upload text to generate the Knowledge Graph</p>
